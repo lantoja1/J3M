@@ -1,4 +1,4 @@
-##A4M33VIA
+##J3M
 Semestrální projekt pro A4M33VIA FEL ČVUT.
 
 ##Motivace
