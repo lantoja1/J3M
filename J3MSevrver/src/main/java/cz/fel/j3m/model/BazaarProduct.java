@@ -13,26 +13,32 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @Entity
-@Table(name = "transport")
-public class Transport implements Serializable {
+@Table(name = "bazar_product")
+public class BazaarProduct implements Serializable {
 
 	@Id
-	@Column(name = "transport_id")
+	@Column(name = "order_id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Long transportId;
+	private Long productId;
 
 	@Column(name = "name")
 	private String name;
 
+	@Column(name = "product_size")
+	private String productSize;
+
+	@Column(name = "photo_url")
+	private String photoUrl;
+
 	@Embedded
 	private Price price;
 
-	public Long getTransportId() {
-		return transportId;
+	public Long getProductId() {
+		return productId;
 	}
 
-	public void setTransportId(Long transportId) {
-		this.transportId = transportId;
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 
 	public String getName() {
@@ -41,6 +47,22 @@ public class Transport implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getProductSize() {
+		return productSize;
+	}
+
+	public void setProductSize(String productSize) {
+		this.productSize = productSize;
+	}
+
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
 	}
 
 	public Price getPrice() {
