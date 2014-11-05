@@ -51,5 +51,4 @@ public class Payment implements Serializable {
 		this.price = price;
 	}
 
-	
 }

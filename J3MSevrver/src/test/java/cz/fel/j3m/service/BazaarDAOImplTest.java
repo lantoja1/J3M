@@ -47,27 +47,28 @@ public class BazaarDAOImplTest {
 	public void testGetEntityManager() {
 		assertNotNull(dao.getEntityManager());
 	}
-	
+
 	@Test
 	public void testFindNewOrders() {
 		Currency c = TestUtils.getTestCurrency();
 		dao.persist(c);
 
 		BazaarOrder o = TestUtils.getTestOrder(c);
-		BazaarOrder o2 = TestUtils.getTestOrder(c);		
+		BazaarOrder o2 = TestUtils.getTestOrder(c);
 		OrderState s1 = dao.findOrderState(OrderState.NEW_STATE);
 		OrderState s2 = dao.findOrderState(OrderState.PROCESSED_STATE);
-                o.setState(s1);
-                o2.setState(s2);
+		o.setState(s1);
+		o2.setState(s2);
 
-                dao.persist(o);		
+		dao.persist(o);
 		dao.persist(o2);
-                
-                List<BazaarOrder> newOrders = dao.findOrdersByState(OrderState.NEW_STATE);
-                assertEquals(1, newOrders.size());
-                
-                BazaarOrder newOrder = newOrders.get(0);
-                assertEquals(o, newOrder);                
+
+		List<BazaarOrder> newOrders = dao
+				.findOrdersByState(OrderState.NEW_STATE);
+		assertEquals(1, newOrders.size());
+
+		BazaarOrder newOrder = newOrders.get(0);
+		assertEquals(o, newOrder);
 	}
 
 }

@@ -13,13 +13,13 @@ public interface BazaarDAO {
 
 	@Transactional(readOnly = true)
 	public List<BazaarOrder> findAllOrders();
-	
-	@Transactional(readOnly= true)
+
+	@Transactional(readOnly = true)
 	public List<BazaarOrder> findOrdersByState(Long state);
 
-        @Transactional
-        public OrderState findOrderState(Long state);
-        
+	@Transactional
+	public OrderState findOrderState(Long state);
+
 	@Transactional
 	public <E> void persist(E entity);
 

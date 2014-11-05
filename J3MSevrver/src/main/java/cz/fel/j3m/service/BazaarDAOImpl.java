@@ -20,7 +20,7 @@ public class BazaarDAOImpl implements BazaarDAO {
 	@Override
 	public List<BazaarOrder> findAllOrders() {
 		Query q = entityManger.createNamedQuery("BazaarOrder.findAll");
-		
+
 		return q.getResultList();
 	}
 
@@ -31,17 +31,17 @@ public class BazaarDAOImpl implements BazaarDAO {
 
 		return q.getResultList();
 	}
-	
-        @Override
+
+	@Override
 	public OrderState findOrderState(Long state) {
-            Query q = entityManger.createNamedQuery("OrderState.findByState");
-            q.setParameter("state", state);
-            
-            List<OrderState> states = q.getResultList();
-            if (!states.isEmpty()) {
-                return states.get(0);
-            }
-            return null;
+		Query q = entityManger.createNamedQuery("OrderState.findByState");
+		q.setParameter("state", state);
+
+		List<OrderState> states = q.getResultList();
+		if (!states.isEmpty()) {
+			return states.get(0);
+		}
+		return null;
 	}
 
 	@Override

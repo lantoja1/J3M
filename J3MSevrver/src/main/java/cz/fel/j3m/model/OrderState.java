@@ -19,10 +19,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 		@NamedQuery(name = "OrderState.findByState", query = "SELECT e FROM OrderState e where e.orderStateId = :state") })
 @Table(name = "order_state")
 public class OrderState implements Serializable {
-    
-        public static final Long NEW_STATE = 1L;
-        public static final Long SENT_STATE = 2L;
-        public static final Long PROCESSED_STATE = 3L;
+
+	public static final Long NEW_STATE = 1L;
+	public static final Long SENT_STATE = 2L;
+	public static final Long PROCESSED_STATE = 3L;
 
 	// 1 - new, 2 - processed, 3 - sent, ... whatever
 	@Id

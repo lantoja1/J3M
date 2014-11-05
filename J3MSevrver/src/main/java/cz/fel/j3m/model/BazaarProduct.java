@@ -73,5 +73,4 @@ public class BazaarProduct implements Serializable {
 		this.price = price;
 	}
 
-	
 }

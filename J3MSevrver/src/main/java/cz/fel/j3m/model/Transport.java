@@ -51,5 +51,4 @@ public class Transport implements Serializable {
 		this.price = price;
 	}
 
-	
 }
