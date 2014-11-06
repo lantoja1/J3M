@@ -1,4 +1,4 @@
-package cz.fel.j3m.service;
+package cz.fel.j3m.dao;
 
 import java.util.List;
 
@@ -13,6 +13,9 @@ public interface BazaarDAO {
 
 	@Transactional(readOnly = true)
 	public List<BazaarOrder> findAllOrders();
+	
+	@Transactional(readOnly = true)
+	public List<OrderState> findAllStates();
 
 	@Transactional(readOnly = true)
 	public List<BazaarOrder> findOrdersByState(Long state);
@@ -22,6 +25,15 @@ public interface BazaarDAO {
 
 	@Transactional
 	public <E> void persist(E entity);
+
+	@Transactional
+	public void saveNewOrders(List<BazaarOrder> orders) throws Exception;
+
+	@Transactional
+	public BazaarOrder findBazaarOrder(Long orderId);
+
+	@Transactional
+	public BazaarOrder updateOrder(BazaarOrder order) throws Exception;
 
 	public EntityManager getEntityManager();
 

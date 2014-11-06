@@ -1,4 +1,4 @@
-package cz.fel.j3m.service;
+package cz.fel.j3m.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -14,6 +14,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import testutils.TestUtils;
+import cz.fel.j3m.dao.BazaarDAO;
 import cz.fel.j3m.model.BazaarOrder;
 import cz.fel.j3m.model.Currency;
 import cz.fel.j3m.model.OrderState;

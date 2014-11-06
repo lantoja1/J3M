@@ -57,4 +57,10 @@ public class Currency implements Serializable {
 		this.bidUpdated = bidUpdated;
 	}
 
+	@Override
+	public String toString() {
+		return "Currency [currencyCode=" + currencyCode + ", bid=" + bid
+				+ ", bidUpdated=" + bidUpdated + "]";
+	}
+
 }
