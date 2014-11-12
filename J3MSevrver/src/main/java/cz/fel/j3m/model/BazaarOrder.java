@@ -1,9 +1,11 @@
 package cz.fel.j3m.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -22,9 +24,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.springframework.beans.factory.annotation.Configurable;
-
-@Configurable(preConstruction = true)
 @XmlRootElement
 @Entity
 @NamedQueries({
@@ -50,7 +49,7 @@ public class BazaarOrder implements Serializable {
 	@JoinColumn(name = "transport")
 	private Transport transport;
 
-	@OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<OrderProduct> products;
 
 	@NotNull
@@ -130,6 +129,9 @@ public class BazaarOrder implements Serializable {
 	}
 
 	public List<OrderProduct> getProducts() {
+		if (products == null) {
+			products = new ArrayList<>();
+		}
 		return products;
 	}
 

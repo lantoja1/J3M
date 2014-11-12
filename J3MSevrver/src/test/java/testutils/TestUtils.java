@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import cz.fel.j3m.model.BazaarOrder;
+import cz.fel.j3m.model.BazaarProduct;
 import cz.fel.j3m.model.Currency;
+import cz.fel.j3m.model.OrderProduct;
 import cz.fel.j3m.model.Price;
 
 public class TestUtils {
@@ -20,12 +22,35 @@ public class TestUtils {
 		order.setZip("test zip");
 		order.setOrderUrl("test order url");
 
-		Price price = new Price();
-		price.setAmount(new BigDecimal(100.90));
-		price.setCurrency(currency);
+		Price price = getPrice(currency);
 		order.setPrice(price);
 
 		return order;
+	}
+
+	private static Price getPrice(Currency currency) {
+		Price price = new Price();
+		price.setAmount(new BigDecimal(100.90));
+		price.setCurrency(currency);
+		return price;
+	}
+	
+	public static OrderProduct getTestOrderProduct(BazaarOrder o, Currency c) {
+		BazaarProduct p = new BazaarProduct();
+		p.setName("triko test");
+		p.setPhotoUrl("test url");
+		p.setPrice(getPrice(c));
+		p.setProductSize("XL");
+		
+		OrderProduct op = new OrderProduct();
+		op.setDiscount(BigDecimal.ZERO);
+		op.setOrder(o);
+		op.setPrice(p.getPrice());
+		op.setProduct(p);
+		
+		o.getProducts().add(op);
+		
+		return op;
 	}
 
 	public static Currency getTestCurrency() {

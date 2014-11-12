@@ -23,7 +23,6 @@ import org.springframework.stereotype.Component;
 
 import cz.fel.j3m.dao.BazaarDAO;
 import cz.fel.j3m.model.BazaarOrder;
-import cz.fel.j3m.model.Currency;
 import cz.fel.j3m.model.OrderState;
 
 @Singleton
@@ -47,7 +46,7 @@ public class BazaarRESTServiceImpl implements BazaarRESTService {
 
 	@Override
 	@GET
-	@Path("/orders")
+	@Path("/neworders")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public List<BazaarOrder> getNewOrders() {
 		return dao.findOrdersByState(OrderState.NEW_STATE);
@@ -56,7 +55,7 @@ public class BazaarRESTServiceImpl implements BazaarRESTService {
 	// TODO userId
 	@Override
 	@PUT
-	@Path("/new")
+	@Path("/addorders")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response createNewOrders(@QueryParam("clientId") Long clientId,
 									List<BazaarOrder> newOrders) {
@@ -74,18 +73,9 @@ public class BazaarRESTServiceImpl implements BazaarRESTService {
 		return Response.ok().build();
 	}
 
-	// pouze pro testovani
-	@PUT
-	@Path("/currency")
-	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response updateCurrency(Currency currency) {
-		System.out.println("currency code : " + currency.getCurrencyCode());
-		return Response.ok().build();
-	}
-
 	@Override
 	@GET
-	@Path("/orders/{id}")
+	@Path("/order/{id}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public BazaarOrder getOrder(@PathParam("id") Long orderId) {
 		BazaarOrder order = dao.findBazaarOrder(orderId);
@@ -98,12 +88,14 @@ public class BazaarRESTServiceImpl implements BazaarRESTService {
 
 	@Override
 	@PUT
-	@Path("/orders")
+	@Path("/order")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public BazaarOrder updateOrderStatus(	@QueryParam("clientId") Long clientId,
+	public BazaarOrder updateOrder(	@QueryParam("clientId") Long clientId,
 											BazaarOrder order) {
 		if (order == null) {
 			throw badRequestException();
+		} else if (order.getState() == null) {
+			throw badRequestException("Order state must be set.");
 		}
 
 		try {
@@ -124,7 +116,11 @@ public class BazaarRESTServiceImpl implements BazaarRESTService {
 	}
 
 	private BadRequestException badRequestException() {
-		return new BadRequestException("Empty request body is not accepted.");
+		return badRequestException("Empty request body is not accepted.");
+	}
+	
+	private BadRequestException badRequestException(String msg) {
+		return new BadRequestException(msg);
 	}
 
 	private NotFoundException notFoundException(Long orderId) {

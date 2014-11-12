@@ -41,6 +41,6 @@ public interface BazaarRESTService {
 	 * @param order to be updated
 	 * @return
 	 */
-	public BazaarOrder updateOrderStatus(Long clientId, BazaarOrder order);
+	public BazaarOrder updateOrder(Long clientId, BazaarOrder order);
 
 }

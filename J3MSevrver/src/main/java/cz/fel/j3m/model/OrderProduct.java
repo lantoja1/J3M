@@ -3,22 +3,32 @@ package cz.fel.j3m.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @Entity
+@NamedQueries({
+	@NamedQuery(name = "OrderProduct.findAll", query = "SELECT e FROM OrderProduct e")
+})
 @Table(name = "order_product")
 public class OrderProduct implements Serializable {
 
-	@EmbeddedId
-	private OrderProductPK orderProductId;
+	@Id
+	@Column(name = "order_product_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Long orderProductId;
 
 	@Embedded
 	private Price price;
@@ -27,15 +37,27 @@ public class OrderProduct implements Serializable {
 	private BigDecimal discount;
 
 	@ManyToOne
-	@JoinColumn(name = "order")
+	@JoinColumn(name = "bazaar_order")
 	private BazaarOrder order;
 
-	public OrderProductPK getOrderProductId() {
+	@ManyToOne
+	@JoinColumn(name = "product")
+	private BazaarProduct product;
+
+	public Long getOrderProductId() {
 		return orderProductId;
 	}
 
-	public void setOrderProductId(OrderProductPK orderProductId) {
+	public void setOrderProductId(Long orderProductId) {
 		this.orderProductId = orderProductId;
+	}
+
+	public BazaarProduct getProduct() {
+		return product;
+	}
+
+	public void setProduct(BazaarProduct product) {
+		this.product = product;
 	}
 
 	public Price getPrice() {

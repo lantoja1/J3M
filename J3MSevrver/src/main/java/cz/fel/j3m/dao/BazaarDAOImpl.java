@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import cz.fel.j3m.model.BazaarOrder;
 import cz.fel.j3m.model.OrderState;
+import cz.fel.j3m.model.Payment;
+import cz.fel.j3m.model.Transport;
 
 @Repository
 public class BazaarDAOImpl implements BazaarDAO {
@@ -73,7 +75,7 @@ public class BazaarDAOImpl implements BazaarDAO {
 
 			if (find == null) {
 				entityManger.persist(order);
-			} else {
+			} else if (find.getState().getOrderStateId() < OrderState.SENT_STATE) {
 				entityManger.merge(order);
 			}
 		}
@@ -93,8 +95,51 @@ public class BazaarDAOImpl implements BazaarDAO {
 			throw new EntityNotFoundException();
 		}
 
+		// yeah - musim rozebrat, protoze muze prijit order napr.
 		managed.setState(order.getState());
+		if (notEmpty(order.getCity())) {
+			managed.setCity(order.getCity());
+		}
+		if (notEmpty(order.getCustomerNote())) {
+			managed.setCustomerNote(order.getCustomerNote());
+		}
+		if (notEmpty(order.getEmail())) {
+			managed.setEmail(order.getEmail());
+		}
+		if (notEmpty(order.getFirstName())) {
+			managed.setFirstName(order.getFirstName());
+		}
+		if (notEmpty(order.getHouseNumber())) {
+			managed.setHouseNumber(order.getHouseNumber());
+		}
+		if (notEmpty(order.getOrderUrl())) {
+			managed.setOrderUrl(order.getOrderUrl());
+		}
+		if (notEmpty(order.getStreet())) {
+			managed.setStreet(order.getStreet());
+		}
+		if (notEmpty(order.getSurname())) {
+			managed.setSurname(order.getSurname());
+		}
+		if (notEmpty(order.getZip())) {
+			managed.setZip(order.getZip());
+		}
+		if (order.getPayment() != null && managed.getPayment() == null) {
+			Payment payment = order.getPayment();
+			managed.setPayment(payment);
+			entityManger.persist(payment);
+		}
+		if (order.getTransport() != null && managed.getTransport() == null) {
+			Transport transport = order.getTransport();
+			managed.setTransport(transport);
+			entityManger.persist(transport);
+		}
+
 		return entityManger.merge(managed);
+	}
+
+	public boolean notEmpty(String s) {
+		return s != null && !"".equals(s);
 	}
 
 }

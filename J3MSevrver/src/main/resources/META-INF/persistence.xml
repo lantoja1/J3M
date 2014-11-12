@@ -9,9 +9,8 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
         <class>cz.fel.j3m.model.Currency</class>
         <class>cz.fel.j3m.model.BazaarProduct</class>
         <class>cz.fel.j3m.model.BazaarOrder</class>
-        <class>cz.fel.j3m.model.OrderProduct</class>
-        <class>cz.fel.j3m.model.OrderProductPK</class>
         <class>cz.fel.j3m.model.OrderState</class>
+        <class>cz.fel.j3m.model.OrderProduct</class>
         <class>cz.fel.j3m.model.Payment</class>
         <class>cz.fel.j3m.model.Price</class>
         <class>cz.fel.j3m.model.Transport</class>
