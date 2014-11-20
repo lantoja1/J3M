@@ -23,6 +23,10 @@ apply plugin: 'android-apt'
 dependencies {
     apt "org.androidannotations:androidannotations:3+"
     compile "org.androidannotations:androidannotations-api:3+"
+
+    compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
+
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.3.2'
 }
 
 apt {

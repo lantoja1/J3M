@@ -1,9 +1,10 @@
-package cz.cvut.fel.j3mclient.app;
+package cz.cvut.fel.j3mclient.app.view.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import cz.cvut.fel.j3mclient.app.R;
 import org.androidannotations.annotations.EActivity;
 
 @EActivity
